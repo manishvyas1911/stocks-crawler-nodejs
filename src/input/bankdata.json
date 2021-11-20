@@ -1,0 +1,21 @@
+[{
+    "url":"HDFCBANK",
+    "name": "HDFC Bank"
+},
+{
+    "url":"KOTAKBANK",
+    "name": "Kotak Mahendra Bank"
+},
+{
+    "url":"ICICIBANK",
+    "name": "ICICI Bank"
+},
+{
+    "url":"BAJFINANCE",
+    "name": "Bajaj Finance"
+},
+{
+    "url":"HDFC",
+    "name": "HDFC Finance"
+}
+]

@@ -1,0 +1,25 @@
+[{
+        "url":"TCS",
+        "name": "Tata Consultancy Services Ltd"
+    },
+    {
+        "url":"HCLTECH",
+        "name": "HCL Technologies Ltd"
+    },
+    {
+        "url":"INFY",
+        "name": "Infosys Ltd"
+    },
+    {
+        "url":"NAUKRI",
+        "name": "Info Edge (India) Ltd"
+    },
+    {
+        "url":"HAPPSTMNDS",
+        "name": "Happiest Minds Technologies Ltd"
+    },
+    {
+        "url":"WIPRO",
+        "name": "Wipro Ltd"
+    }
+]
