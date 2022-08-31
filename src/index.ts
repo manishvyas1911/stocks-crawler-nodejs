@@ -4,7 +4,6 @@ var json2xlsx = require('node-json-xlsx');
 var fs = require('fs');
 var json2xls = require('json2xls');
 
-
 const processData = function (tableData: any, name: String) {
     let stockPriceCAGRObject = {
         "StockName": name,
@@ -61,23 +60,24 @@ const crawl = async ({ url, name }: any) => {
 
 }
 
+
+
+// Main'
+var oilInputJSON = require('./input/oil.json');
+var bankInputJSON = require('./input/finance.json');
+var fmcgInputJSON = require('./input/fmcg.json');
+var itInputJSON = require('./input/it.json');
+var pharmaInputJSON = require('./input/pharma.json');
+var chemicalInputJSON = require('./input/chemical.json');
+var miscInputJSON = require('./input/other.json');
+
 async function processStocks(input: any) {
     let response = [];
     for (const i of input) {
         response.push(await crawl(i))
     }
-
     return response;
 };
-
-// Main
-var bankInputJSON = require('./input/bankdata.json');
-var fmcgInputJSON = require('./input/fmcgdata.json');
-var itInputJSON = require('./input/itdata.json');
-var pharmaInputJSON = require('./input/pharmadata.json');
-var chemicalInputJSON = require('./input/chemical.json');
-var miscInputJSON = require('./input/misc.json');
-
 const delay = function (ms: number) {
     var start = new Date().getTime();
     var end = start;
@@ -86,26 +86,31 @@ const delay = function (ms: number) {
     }
 }
 
-processStocks(miscInputJSON).then(value => {
-    let finalResponse = [...value];
+
+processStocks(oilInputJSON).then(value => {
+    let finalResponse = [...value]
     delay(10000);
-    processStocks(chemicalInputJSON).then(value => {
+    processStocks(bankInputJSON).then(value => {
         finalResponse = [...value, ...finalResponse]
         delay(10000);
-        processStocks(pharmaInputJSON).then(value => {
+        processStocks(fmcgInputJSON).then(value => {
             finalResponse = [...value, ...finalResponse]
             delay(10000);
             processStocks(itInputJSON).then(value => {
                 finalResponse = [...value, ...finalResponse]
                 delay(10000);
-                processStocks(fmcgInputJSON).then(value => {
+                processStocks(pharmaInputJSON).then(value => {
                     finalResponse = [...value, ...finalResponse]
                     delay(10000);
-                    processStocks(bankInputJSON).then(value => {
+                    processStocks(chemicalInputJSON).then(value => {
                         finalResponse = [...value, ...finalResponse]
-                        var xls = json2xls(finalResponse);
-                        console.log("aFTER pROCess", finalResponse);
-                        fs.writeFileSync('stocks.xlsx', xls, 'binary');
+                        processStocks(miscInputJSON).then(value => {
+                            finalResponse = [...value, ...finalResponse]
+                            var xls = json2xls(finalResponse);
+                            console.log("aFTER pROCess", finalResponse);
+                            fs.writeFileSync('stocks.xlsx', xls, 'binary');
+                        });
+
                     });
                 });
             });
@@ -113,6 +118,7 @@ processStocks(miscInputJSON).then(value => {
         });
     });
 });
+
 
 
 
